@@ -1,6 +1,7 @@
 import pandas as pd
-path = "../"
+from pathlib import Path
 filename = "ks-projects-201801.csv"
-csv_file = path + filename
-df = pd.read_csv(csv_file)
-print(df.head())
+path = Path(__file__).resolve().parents[1]
+file = Path(path, filename)
+df = pd.read_csv(file)
+print(df.describe())
