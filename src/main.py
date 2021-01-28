@@ -1,6 +1,8 @@
 import importer
 import duration
+import goal_variable
 
 df = importer.load_file()
 df = duration.add_duration(df)
-print(df.head)
+df = goal_variable.clean_state_column(df)
+print(df.info())
