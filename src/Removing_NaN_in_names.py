@@ -6,4 +6,4 @@ print(df.shape)                                     #shape of the df
 df = df.dropna(subset=['name'])                     #dropping                                                        
 print(df.shape)                                     #shape of df with NaN values removed (4 less thah in rows)  
 print(df[df.name.isnull()])                         #empty data frame for missing values in name (successful removal)
-print(df.head(5))                                                                                                                                           
+print(df.head(5))                                   #df is the new dataframe without missing values                                                                                                        
