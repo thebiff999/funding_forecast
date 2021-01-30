@@ -7,3 +7,5 @@ def add_column(df):
     except AssertionError as e:
         print("Adding the name_length column has failed")
         print(e)
+
+    return df
