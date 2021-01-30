@@ -8,7 +8,9 @@
 #print(df[df.name.isnull()])                         #empty data frame for missing values in name (successful removal)
 #print(df.head(5))                                   #df is the new dataframe without missing values                                                              
 
-def remove_nan_names(df):
+import pandas as pd
+
+def remove_nan_names(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna(subset = ['name'])
 
     try:

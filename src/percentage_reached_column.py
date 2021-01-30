@@ -3,7 +3,9 @@
 #df['percentage_reached_real'] = df['usd_pledged_real']/df['usd_goal_real']         #new column with
 #print(df['percentage_reached_real'].tail(n = 5))                                   #data inspection
 
-def add_column(df):
+import pandas as pd
+
+def add_column(df: pd.DataFrame) -> pd.DataFrame:
     df['percentage_reached_real'] = df['usd_pledged_real']/df['usd_goal_real']
 
     try:

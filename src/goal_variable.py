@@ -1,8 +1,10 @@
+import pandas as pd
+
 #drop rows with values other than failed and successful
-def clean_state_column(df):
+def clean_state_column(df: pd.DataFrame) -> pd.DataFrame:
 
     #help function for asserting that a value is not in the column state
-    def assert_count(values, dataframe):
+    def assert_count(values: list, dataframe: pd.DataFrame):
         for i in values:
             assert len(dataframe[dataframe["state"] == i]) == 0, "value count of " + i + " is greater 0"
 
@@ -17,7 +19,5 @@ def clean_state_column(df):
     except AssertionError as e:
         print("The operation failed")
         print(e)
-
-
 
     return df

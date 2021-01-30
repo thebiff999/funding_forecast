@@ -1,7 +1,7 @@
 import pandas as pd
 import datetime as dt
 
-def add_column(df):
+def add_column(df: pd.DataFrame):
     if not isinstance(df, pd.DataFrame):
         raise ValueError("add_duration has to be called with a DataFrame as parameter")
     elif df['launched'].empty:
@@ -9,7 +9,7 @@ def add_column(df):
     else:
         return process(df)
 
-def process(df):
+def process(df: pd.DataFrame) -> pd.DataFrame:
     #convert string to timestamp to date for the 'launched' column
     df['launched'] = pd.to_datetime(df['launched'])
     df['launched'] = df['launched'].dt.date
