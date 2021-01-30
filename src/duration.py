@@ -1,7 +1,7 @@
 import pandas as pd
 import datetime as dt
 
-def add_duration(df):
+def add_column(df):
     if not isinstance(df, pd.DataFrame):
         raise ValueError("add_duration has to be called with a DataFrame as parameter")
     elif df['launched'].empty:
@@ -18,12 +18,17 @@ def process(df):
     df['deadline'] = pd.to_datetime(df['deadline'])
     df['deadline'] = df['deadline'].dt.date
 
-    #check if conversions were successful
-    assert df['launched'].isna().sum() == 0
-    assert df['deadline'].isna().sum() == 0
+    try:
+        #check if conversions were successful
+        assert df['launched'].isna().sum() == 0
+        assert df['deadline'].isna().sum() == 0
 
-    #create duration and assert completeness
-    df['duration'] = df['deadline'] - df['launched']
-    assert df['duration'].isna().sum() == 0
+        #create duration and assert completeness
+        df['duration'] = df['deadline'] - df['launched']
+        assert df['duration'].isna().sum() == 0
+
+    except AssertionError as e:
+        print("Adding the duration column has faield")
+        print(e)
 
     return df

@@ -11,6 +11,7 @@ def clean_state_column(df):
 
     df["state"] = df["state"].astype("category")
     df = df[df.state.isin(keep_states)]
+    
     try:
         assert_count(remove_states, df)
     except AssertionError as e:
