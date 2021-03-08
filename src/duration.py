@@ -28,7 +28,7 @@ def process(df: pd.DataFrame) -> pd.DataFrame:
         assert df['duration'].isna().sum() == 0
 
     except AssertionError as e:
-        print("Adding the duration column has faield")
+        print("Adding the duration column has failed")
         print(e)
 
     return df
