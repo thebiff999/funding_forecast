@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
 
 duration_float = df['duration_days']
 backers = df['backers']
