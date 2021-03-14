@@ -32,3 +32,6 @@ print('Minimum of goal successful projects')
 print(dfsuccessful['usd_goal_real'].min())
 print('Median of real goal failed projects')
 print(np.median(dfsuccessful['usd_goal_real']))
+
+
+#Maximum and Median of real goal is much larger for failed Projects
