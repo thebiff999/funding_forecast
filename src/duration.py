@@ -1,5 +1,6 @@
 import pandas as pd
 import datetime as dt
+from datetime import timedelta
 
 def add_column(df: pd.DataFrame):
     if not isinstance(df, pd.DataFrame):
@@ -23,10 +24,14 @@ def process(df: pd.DataFrame) -> pd.DataFrame:
         assert df['launched'].isna().sum() == 0
         assert df['deadline'].isna().sum() == 0
 
-        #create duration and assert completeness
+        #create duration (type = timedelta) and assert completeness
         df['duration'] = df['deadline'] - df['launched']
         assert df['duration'].isna().sum() == 0
-
+        
+        #create duration_days (type = float) and assert completeness
+        df['duration_days'] = df['duration']/timedelta(days=1)
+        assert df['duration_days'].isna().sum() == 0
+        
     except AssertionError as e:
         print("Adding the duration column has failed")
         print(e)
