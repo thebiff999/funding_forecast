@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-#Boxplots for Goal (Real US$)
+#Boxplots State vs. Goal (Real US$)
 plt.subplot(1,2,1)
 sns.boxplot(x=df["state"],
             y=df["usd_goal_real"])
@@ -10,7 +10,7 @@ plt.ylabel('Goal (Real US$)')
 plt.ylim(-5000, 50000)
 plt.xlim(None, None)
 
-#Violinplots for Goal (Real US$)
+#Violinplots State vs. Goal (Real US$)
 plt.subplot(1,2,2)
 sns.violinplot(x=df["state"],
                 y=df["usd_goal_real"])
