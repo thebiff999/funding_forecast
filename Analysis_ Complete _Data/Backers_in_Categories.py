@@ -6,7 +6,7 @@ import seaborn as sns
 plt.subplot(2,1,1)
 plt.title('Backers in each main category')
 sns.barplot(x=df['main_category'],
-               y=df["backers"])
+            y=df["backers"])
 plt.xlabel('Main Category')
 plt.ylabel('(Average?) Number of Backers')
 plt.ylim(0, 550)
