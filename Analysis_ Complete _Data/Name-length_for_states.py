@@ -11,6 +11,7 @@ plt.xlabel('State')
 plt.ylabel('Number of Characters')
 
 plt.subplot(1,2,2)
+plt.title('Name length and project state')
 sns.violinplot( x=df["state"],
                 y=df['name_length'])
 plt.xlabel('State')
