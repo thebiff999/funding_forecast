@@ -9,9 +9,9 @@ import percentage_reached_column as percentage
 
 class preprocessor:
 
-    def __init__(self, source: str = ""):
+    def __init__(self, source: str = "ks-projects-201801.csv"):
         self.source = source
-        importer.load_file(source)
+        self.dataframe = importer.load_file(source)
 
     def setSource(self, source: str):
         self.source = source
@@ -35,4 +35,11 @@ class preprocessor:
         df = cd.add_column(df)
         df = percentage.add_column(df)
 
+        self.dataframe = df
         return df
+
+    def getDataset(self) -> pd.DataFrame:
+        return self.dataframe
+
+    def exportDataset(self):
+        self.dataframe.to_csv("kickstarter.csv")
