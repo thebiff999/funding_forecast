@@ -4,8 +4,9 @@ import duration
 import goal_variable as gv
 import importer
 import name_length as nl
-import Removing_NaN_in_names as rm_names
+import remove_names as rm_names
 import percentage_reached_column as percentage
+import remove_countries as rm_countries
 
 class preprocessor:
 
@@ -27,7 +28,8 @@ class preprocessor:
         #load the file and clean the data
         df = importer.load_file(source)
         df = gv.clean_state_column(df)
-        df = rm_names.remove_nan_names(df)
+        df = rm_names.clean_name_column(df)
+        df = rm_countries.clean_country_column(df)
 
         #add additional columns
         df = duration.add_column(df)

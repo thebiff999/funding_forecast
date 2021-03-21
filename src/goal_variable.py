@@ -20,6 +20,5 @@ def clean_state_column(df: pd.DataFrame) -> pd.DataFrame:
         print("The operation failed")
         print(e)
     df.state = df['state'].cat.remove_unused_categories()
-    print('removed unused categories')
     
     return df
