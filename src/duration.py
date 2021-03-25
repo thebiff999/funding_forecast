@@ -30,6 +30,7 @@ def process(df: pd.DataFrame) -> pd.DataFrame:
         
         #create duration_days (type = float) and assert completeness
         df['duration_days'] = df['duration']/timedelta(days=1)
+        df = df.drop(columns=['duration'])
         assert df['duration_days'].isna().sum() == 0
         
     except AssertionError as e:

@@ -5,6 +5,7 @@ def clean_country_column(df: pd.DataFrame) -> pd.DataFrame:
 
     try:
         assert(df[df.country=='N,0"'].empty)
+        print(df[df.country=='N,0"'])
     except AssertionError as e:
         print("Removing NaN countries has failed")
         print(e)
