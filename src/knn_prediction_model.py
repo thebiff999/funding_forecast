@@ -16,20 +16,11 @@ class knn_model:
         # create array with target values
         self.kickstarter_dataset_target = self.df['state'].values
 
-        # print data and ensure right formatting
-        # print(kickstarter_dataset_target)
-        # print('Type of target:{}'.format(type(kickstarter_dataset_target)))
-        # print('Shape of target:{}'.format(kickstarter_dataset_target.shape))
-
         # remove the target values from the dataframe
         self.df = self.df.drop(['state'], axis=1)
 
         # create array with data
         self.kickstarter_dataset_data = self.df.values
-
-        # print(kickstarter_dataset_data)
-        # print('Type of data:{}'.format(type(kickstarter_dataset_data)))
-        # print('Shape of data:{}'.format(kickstarter_dataset_data.shape))
 
         # create testing and training sets (25% test)
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.kickstarter_dataset_data,
@@ -56,5 +47,3 @@ class knn_model:
             print("Your campaign has a high probability of success")
         elif (prediction == 0):
             print("Your campaign has a low chance of success. It's likely to fail.")
-        #print("Prediction: {}".format(prediction))
-        #print("Predicted target name: {}".format(kickstarter_dataset_target_names[prediction]))
