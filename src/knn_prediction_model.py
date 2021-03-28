@@ -4,7 +4,7 @@ from sklearn.neighbors import KNeighborsClassifier
 import pandas as pd
 import numpy as np
 import ml_preprocessor as mlp
-git
+
 class knn_model:
 
     # init the object with the preprocessed dataframe and create testing and training sets
@@ -50,6 +50,6 @@ class knn_model:
         elif (prediction == 0):
             print("Your campaign has a low chance of success. It's likely to fail.")
         print("The accuracy of this prediction is " + str(self.score) + "%")
-        
+
         #print("Prediction: {}".format(prediction))
         #print("Predicted target name: {}".format(kickstarter_dataset_target_names[prediction]))
