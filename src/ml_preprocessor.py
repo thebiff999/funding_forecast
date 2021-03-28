@@ -10,7 +10,7 @@ class ml_preprocessor:
         self.dataframe = preprocessor.cleanDataset()
         self.template = self.dataframe
         self.dataframe = self.main(self.dataframe)
-        print(self.dataframe.head())
+        #print(self.dataframe.head())
 
     # prepare the user input in the same way as the training data to use it for prediction
     def preprocessInput(self, data: dict):

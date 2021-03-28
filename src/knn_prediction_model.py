@@ -45,25 +45,16 @@ class knn_model:
         self.knn.fit(self.X_train, self.y_train)
 
     def predictData(self, data: dict):
-        # setting up predictions
         # insert the values of your project you want o make a prediction for
-        # we just use made up numbers for demonstration
-        if (data == False):
-            data = {
-                'category': 'Games',
-                'main_category': 'Games',
-                'currency': 'EUR',
-                'country': 'DE',
-                'usd_goal_real': 200000000,
-                'duration_days': 300,
-                'name_length': 20,
-                'category_difference': 0
-            }
 
         X_new = self.ml_p.preprocessInput(data)
 
         prediction = self.knn.predict(X_new)
         kickstarter_dataset_target_names = np.array(['failed', 'successful'])
 
-        print("Prediction: {}".format(prediction))
-        print("Predicted target name: {}".format(kickstarter_dataset_target_names[prediction]))
+        if (prediction == 1):
+            print("Your campaign has a high probability of success")
+        elif (prediction == 0):
+            print("Your campaign has a low chance of success. It's likely to fail.")
+        #print("Prediction: {}".format(prediction))
+        #print("Predicted target name: {}".format(kickstarter_dataset_target_names[prediction]))
