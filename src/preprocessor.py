@@ -17,6 +17,7 @@ class preprocessor:
     def setSource(self, source: str):
         self.source = source
 
+    # cleans and returns the given, or if none is given, the default dataset
     def cleanDataset(self, source: str = "") -> pd.DataFrame:
 
         #check if the source parameter is filled or the object has been initialized with a source

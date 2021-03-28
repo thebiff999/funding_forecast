@@ -1,5 +1,5 @@
 import pandas as pd
-import ml_preprocessor as ml
+import ml_preprocessor as mlp
 
 # take input from user
 name = input('Please enter your project name: ')
@@ -29,6 +29,6 @@ data = {
 }
 
 df = pd.DataFrame(data, index=[0])
-df = ml.preprocessInput(df)
+df = mlp.preprocessInput(df)
 print(df)
 print('The success probability of your project is ...')

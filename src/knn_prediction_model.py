@@ -1,58 +1,69 @@
 # VERY SIMPLE PREDICTION MODEL #
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+import pandas as pd
 import numpy as np
+import ml_preprocessor as mlp
 
-# make new column with numerical codes for state
-df['code'] = pd.factorize(df['state'])[0]
-# code 0 -> state = failed
-# code 1 -> state = successful
+class knn_model:
 
-# Drop unnecessary columns #
-df = df.drop(['ID', 'country', 'main_category', 'category', 'currency', 'name', 'deadline', 'launched', 'pledged',
-              'backers', 'usd pledged', 'usd_pledged_real', 'usd_goal_real', 'category_difference', 'duration',
-              'percentage_reached_real', 'state'],
-             axis=1)
+    # init the object with the preprocessed dataframe and create testing and training sets
+    def __init__(self):
+        # get prepared dataframe from the machine learning preprocessor script
+        self.ml_p = mlp.ml_preprocessor()
+        self.df = self.ml_p.getDataFrame()
 
-kickstarter_dataset_target = df['code'].values                          # create array with target values
+        # create array with target values
+        self.kickstarter_dataset_target = self.df['state'].values
 
-print(kickstarter_dataset_target)                                       # glance at data
-print('Type of target:{}'.format(type(kickstarter_dataset_target)))     # make sure the format is right
-print('Shape of target:{}'.format(kickstarter_dataset_target.shape))
+        # print data and ensure right formatting
+        # print(kickstarter_dataset_target)
+        # print('Type of target:{}'.format(type(kickstarter_dataset_target)))
+        # print('Shape of target:{}'.format(kickstarter_dataset_target.shape))
 
-df = df.drop(['code'], axis=1)                                           # remove the code from df
+        # remove the target values from the dataframe
+        self.df = self.df.drop(['state'], axis=1)
 
-kickstarter_dataset_data = df.values                                    # create array with data
+        # create array with data
+        self.kickstarter_dataset_data = self.df.values
 
-print(kickstarter_dataset_data)                                         # glance at data
-print('Type of data:{}'.format(type(kickstarter_dataset_data)))         # make sure the format is right
-print('Shape of data:{}'.format(kickstarter_dataset_data.shape))
+        # print(kickstarter_dataset_data)
+        # print('Type of data:{}'.format(type(kickstarter_dataset_data)))
+        # print('Shape of data:{}'.format(kickstarter_dataset_data.shape))
 
+        # create testing and training sets (25% test)
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.kickstarter_dataset_data,
+                                                            self.kickstarter_dataset_target,
+                                                            test_size=0.25,
+                                                            random_state=0)
+        self.knn = None
 
+    def createModel(self, neighbors: int = 1):
+        # setting up KNN classifier and fitting it to the training data
+        self.knn = KNeighborsClassifier(neighbors)
+        # n_neighbours = 1 is probably not optimal an will need to be adjusted
+        self.knn.fit(self.X_train, self.y_train)
 
-# create testing and training sets (25% test)
-X_train, X_test, y_train, y_test = train_test_split(kickstarter_dataset_data,
-                                                    kickstarter_dataset_target,
-                                                    test_size=0.25,
-                                                    random_state=0)
+    def predictData(self, data: dict):
+        # setting up predictions
+        # insert the values of your project you want o make a prediction for
+        # we just use made up numbers for demonstration
+        if (data == False):
+            data = {
+                'category': 'Games',
+                'main_category': 'Games',
+                'currency': 'EUR',
+                'country': 'DE',
+                'usd_goal_real': 200000000,
+                'duration_days': 300,
+                'name_length': 20,
+                'category_difference': 0
+            }
 
+        X_new = self.ml_p.preprocessInput(data)
 
-# setting up KNN classifier and fitting it to the training data
-knn = KNeighborsClassifier(n_neighbors=1)
-# n_neighbours = 1 is probably not optimal an will need to be adjusted
-knn.fit(X_train, y_train)
+        prediction = self.knn.predict(X_new)
+        kickstarter_dataset_target_names = np.array(['failed', 'successful'])
 
-# setting up predictions
-# insert the values of your project you want o make a prediction for
-# we just use made up numbers for demonstration
-goal = 20000
-duration_days = 30
-name_length = 20
-
-X_new = np.array([[goal, duration_days, name_length]])
-
-prediction = knn.predict(X_new)
-kickstarter_dataset_target_names = np.array(['failed', 'successful'])
-
-print("Prediction: {}".format(prediction))
-print("Predicted target name: {}".format(kickstarter_dataset_target_names[prediction]))
+        print("Prediction: {}".format(prediction))
+        print("Predicted target name: {}".format(kickstarter_dataset_target_names[prediction]))
