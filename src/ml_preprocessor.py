@@ -1,13 +1,18 @@
 import pandas as pd
 import numpy as np
 import preprocessor as p
+from sklearn.model_selection import train_test_split
 
 class ml_preprocessor:
 
-    def __init__(self, data="ks-projects-201801.csv"):
-        self.data = data
-        preprocessor = p.preprocessor(data)
-        self.dataframe = preprocessor.cleanDataset()
+    def __init__(self, path="ks-projects-201801.csv", dataframe: pd.DataFrame=None):
+
+        if (dataframe.empty):
+            preprocessor = p.preprocessor(path)
+            self.dataframe = preprocessor.cleanDataset()
+        else:
+            self.dataframe = dataframe
+
         self.template = self.dataframe
         self.dataframe = self.main(self.dataframe)
         #print(self.dataframe.head())
@@ -69,3 +74,19 @@ class ml_preprocessor:
         df_normalized = pd.concat([df, dummy_main_category, dummy_category, dummy_currency, dummy_country], axis=1)
 
         return df_normalized
+
+    def getSets(self):
+        kickstarter_dataset_target = self.dataframe['state'].values
+
+        # remove the target values from the dataframe
+        df = self.dataframe.drop(['state'], axis=1)
+
+        # create array with data
+        kickstarter_dataset_data = df.values
+
+        # create testing and training sets (25% test)
+        X_train, X_test, y_train, y_test = train_test_split(kickstarter_dataset_data,
+                                                            kickstarter_dataset_target,
+                                                            test_size=0.25,
+                                                            random_state=0)
+        return X_train, X_test, y_train, y_test

@@ -39,6 +39,7 @@ class preprocessor:
         df = percentage.add_column(df)
 
         self.dataframe = df
+        self.exportDataset()
         return df
 
     def getDataset(self) -> pd.DataFrame:
